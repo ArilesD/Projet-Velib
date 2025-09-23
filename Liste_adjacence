@@ -1,0 +1,37 @@
+import json
+import numpy as np
+from scipy.spatial import Delaunay
+from collections import defaultdict
+
+# Chargement des coordonnées des stations
+with open("velib_stations.json", "r") as f:
+    stations = json.load(f)
+
+# On crée un dictionnaire pour retrouver l'index d'une station par ses coordonnées
+coord_to_id = {(s['lat'], s['lon']): s['station_id'] for s in stations}
+
+# Création de la liste de points
+points = np.array([(s['lat'], s['lon']) for s in stations])
+tri = Delaunay(points)
+
+# Initialisation de la liste d'adjacence
+adjacence = defaultdict(set)
+
+# Construction de la liste d'adjacence à partir des triangles
+for simplex in tri.simplices:
+    for i in range(3):
+        for j in range(i+1, 3):
+            # Récupération des indices des sommets
+            idx1, idx2 = simplex[i], simplex[j]
+            coord1, coord2 = tuple(points[idx1]), tuple(points[idx2])
+            id1 = coord_to_id[coord1]
+            id2 = coord_to_id[coord2]
+            # Ajout des connexions dans les deux sens
+            adjacence[id1].add(id2)
+            adjacence[id2].add(id1)
+
+# Affichage de la liste d’adjacence
+for station_id, voisins in adjacence.items():
+    print(f"{station_id} : {sorted(voisins)}")
+
+
