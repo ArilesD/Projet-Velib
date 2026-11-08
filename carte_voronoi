@@ -6,10 +6,10 @@ from collections import defaultdict
 import math
 
 # Chargement des données
-with open("velib_coordonnées.json", "r") as f:
+with open("velib_coordonnées.json", encoding="utf-8") as f:
     coords = json.load(f)
 
-with open("velib_stations.json", "r") as f:
+with open("velib_stations.json", encoding="utf-8") as f:
     stations_info = json.load(f)
 
 # Dictionnaires utiles
@@ -45,8 +45,7 @@ for station_id in adjacence:
     indice = capacite / voisins if voisins != 0 else 0
     indices[station_id] = indice
 
-# Fonction couleur conforme aux règles :
-# = 6 → verte (optimale), < 6 → rouge (sous-distribution), > 6 → bleu (sur-distribution)
+# Couleurs selon le seuil de 6 retenu dans le projet.
 def get_color(indice):
     if indice < 6:
         return "#ff0000"  # rouge
@@ -57,11 +56,16 @@ def get_color(indice):
 
 # Création de la carte
 m = folium.Map(location=[48.8566, 2.3522], zoom_start=12)
+m.fit_bounds([points.min(axis=0).tolist(), points.max(axis=0).tolist()], padding=(20, 20))
+cellules = folium.FeatureGroup(name="Cellules de Voronoï").add_to(m)
+triangles = folium.FeatureGroup(name="Triangulation de Delaunay", show=False).add_to(m)
+arbre = folium.FeatureGroup(name="Arbre couvrant (Kruskal)", show=False).add_to(m)
+stations = folium.FeatureGroup(name="Stations", show=False).add_to(m)
 
 # Triangles de Delaunay en vert
 for simplex in tri.simplices:
     p1, p2, p3 = points[simplex]
-    folium.PolyLine([p1, p2, p3, p1], color="green", weight=1).add_to(m)
+    folium.PolyLine([p1, p2, p3, p1], color="green", weight=1, opacity=0.4).add_to(triangles)
 
 # Arbre couvrant minimum (Kruskal)
 parent = {s: s for s in adjacence}
@@ -85,7 +89,7 @@ for dist, a, b in sorted_edges:
         acm_edges.append((a, b))
 
 for a, b in acm_edges:
-    folium.PolyLine([id_to_coord[a], id_to_coord[b]], color="black", weight=2.5).add_to(m)
+    folium.PolyLine([id_to_coord[a], id_to_coord[b]], color="black", weight=1.5).add_to(arbre)
 
 # Ajout des cellules de Voronoi selon l'indice de répartition
 vor_points = np.array([[s["lon"], s["lat"]] for s in coords])
@@ -108,9 +112,9 @@ for point_idx, region_idx in enumerate(vor.point_region):
         color=couleur,
         fill=True,
         fill_color=couleur,
-        fill_opacity=0.2,
+        fill_opacity=0.16,
         weight=1
-    ).add_to(m)
+    ).add_to(cellules)
 
 # Ajout des stations avec tooltip détaillé
 for station in stations_info:
@@ -128,26 +132,27 @@ for station in stations_info:
             tooltip=(
                 f"{station.get('name', 'Inconnu')}<br>"
                 f"Capacité: {station.get('capacity', 0)}<br>"
-                f"Indice de répartition: {indice_rep:.3f}"
+                f"Capacité / nombre de voisines : {indice_rep:.3f}"
             )
-        ).add_to(m)
+        ).add_to(stations)
 
 # Ajout de la légende conforme à la définition
 legend_html = """
 <div style="
     position: fixed;
-    bottom: 50px; left: 50px; width: 270px; height: 160px;
+    bottom: 28px; left: 12px; width: 285px; max-width: calc(100% - 44px);
     background-color: white; z-index:9999;
     border:2px solid grey; padding:10px; font-size:14px;">
 <b>Légende :</b><br>
 <span style='color:green;'>─</span> Triangle de Delaunay<br>
 <span style='color:black;'>─</span> Arbre couvrant minimum (Kruskal)<br>
-<span style='color:red;'>●</span> Station sous-distribuée (indice < 6)<br>
-<span style='color:green;'>●</span> Station bien répartie (indice = 6)<br>
-<span style='color:blue;'>●</span> Station sur-distribuée (indice > 6)<br>
+<span style='color:red;'>●</span> Ratio capacité / voisines &lt; 6<br>
+<span style='color:green;'>●</span> Ratio capacité / voisines = 6<br>
+<span style='color:blue;'>●</span> Ratio capacité / voisines &gt; 6<br>
 </div>
 """
 m.get_root().html.add_child(folium.Element(legend_html))
+folium.LayerControl(collapsed=False).add_to(m)
 
 # Sauvegarde de la carte
 m.save("velib_stations_voronoi.html")

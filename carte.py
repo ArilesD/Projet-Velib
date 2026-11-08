@@ -6,10 +6,10 @@ from collections import defaultdict
 import math
 
 # Chargement des données
-with open("velib_coordonnées.json", "r") as f:
+with open("velib_coordonnées.json", encoding="utf-8") as f:
     coords = json.load(f)
 
-with open("velib_stations.json", "r") as f:
+with open("velib_stations.json", encoding="utf-8") as f:
     stations_info = json.load(f)
 
 # Dictionnaires utiles
@@ -84,18 +84,16 @@ for dist, a, b in sorted_edges:
         acm_edges.append((a, b))
 
 # Création de la carte
-m = folium.Map(location=[48.8566, 2.3522], zoom_start=1)
+m = folium.Map(location=[48.8566, 2.3522], zoom_start=12)
+m.fit_bounds([points.min(axis=0).tolist(), points.max(axis=0).tolist()], padding=(20, 20))
+triangles = folium.FeatureGroup(name="Triangulation de Delaunay").add_to(m)
+stations = folium.FeatureGroup(name="Stations").add_to(m)
+arbre = folium.FeatureGroup(name="Arbre couvrant (Kruskal)", show=False).add_to(m)
 
 # Ajout des triangles en vert
 for simplex in tri.simplices:
     p1, p2, p3 = points[simplex]
-    folium.PolyLine([p1, p2, p3, p1], color="green", weight=1).add_to(m)
-
-# Ajout des arêtes de l'arbre couvrant minimum en bleu
-for a, b in acm_edges:
-    latlon_a = id_to_coord[a]
-    latlon_b = id_to_coord[b]
-    folium.PolyLine([latlon_a, latlon_b], color="blue", weight=2.5).add_to(m)
+    folium.PolyLine([p1, p2, p3, p1], color="green", weight=1, opacity=0.4).add_to(triangles)
 
 # Ajout des stations avec couleur selon l’indice
 for station in coords:
@@ -104,36 +102,37 @@ for station in coords:
         couleur = indice_to_color(indices[station_id])
         folium.CircleMarker(
             location=[station['lat'], station['lon']],
-            radius=4,
+            radius=3,
             color=couleur,
             fill=True,
             fill_color=couleur,
             fill_opacity=0.9,
-            popup=f"Station {station_id}<br>Indice: {indices[station_id]:.2f}"
-        ).add_to(m)
+            popup=f"Station {station_id}<br>Capacité / nombre de voisines : {indices[station_id]:.2f}"
+        ).add_to(stations)
 
 # Ajout des arêtes de l'arbre couvrant minimum en noir
 for a, b in acm_edges:
     latlon_a = id_to_coord[a]
     latlon_b = id_to_coord[b]
-    folium.PolyLine([latlon_a, latlon_b], color="black", weight=2.5).add_to(m)
+    folium.PolyLine([latlon_a, latlon_b], color="black", weight=1.5).add_to(arbre)
 
 # Ajout de la légende
 legend_html = """
 <div style="
     position: fixed;
-    bottom: 50px; left: 50px; width: 250px; height: 130px;
+    bottom: 28px; left: 12px; width: 285px; max-width: calc(100% - 44px);
     background-color: white; z-index:9999;
     border:2px solid grey; padding:10px; font-size:14px;
 ">
 <b>Légende :</b><br>
 <span style='color:green;'>─</span> Triangle de Delaunay<br>
 <span style='color:black;'>─</span> Arbre couvrant minimum (Kruskal)<br>
-<span style='color:red;'>●</span> Station sous-distribuée<br>
-<span style='color:green;'>●</span> Station bien répartie
+<span style='color:red;'>●</span> Ratio capacité / voisines faible<br>
+<span style='color:green;'>●</span> Ratio capacité / voisines élevé
 </div>
 """
 m.get_root().html.add_child(folium.Element(legend_html))
+folium.LayerControl(collapsed=False).add_to(m)
 
 # Sauvegarde
 m.save("velib_stations_map.html")
