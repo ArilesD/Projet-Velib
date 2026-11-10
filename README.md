@@ -6,10 +6,12 @@ Projet universitaire de cartographie de **1 473 stations Vélib’** à Paris et
 
 ## Explorer les cartes
 
-- [Carte des stations et du réseau géométrique](velib_stations_map.html) - Les triangles verts relient les stations voisines selon la triangulation de Delaunay. Les arêtes noires forment un arbre couvrant de poids minimal calculé avec l’algorithme de Kruskal.
-- [Carte de Voronoï](velib_stations_voronoi.html) - Chaque cellule affichée correspond à la zone géométriquement la plus proche de sa station. Les cellules ouvertes aux limites du réseau sont omises.
+- [Ouvrir la carte des stations et du réseau géométrique](https://arilesd.github.io/Projet-Velib/velib_stations_map.html) - Les triangles verts relient les stations voisines selon la triangulation de Delaunay. Les arêtes noires forment un arbre couvrant de poids minimal calculé avec l’algorithme de Kruskal.
+- [Ouvrir la carte de Voronoï](https://arilesd.github.io/Projet-Velib/velib_stations_voronoi.html) - Chaque cellule affichée correspond à la zone géométriquement la plus proche de sa station. Les cellules ouvertes aux limites du réseau sont omises.
 
-Télécharge les fichiers HTML et ouvre-les dans ton navigateur. Utilise le menu en haut à droite pour afficher les stations, la triangulation, l’arbre ou les cellules disponibles sur chaque carte. Le fond cartographique se charge via Internet. [Fond de carte © les contributeurs OpenStreetMap](https://www.openstreetmap.org/copyright)
+Le menu en haut à droite permet d’afficher les stations, la triangulation, l’arbre ou les cellules selon la carte. Une connexion Internet charge les composants de la carte et le fond cartographique. [Fond de carte © les contributeurs OpenStreetMap](https://www.openstreetmap.org/copyright)
+
+Pour garder une copie sur ton ordinateur, télécharge les fichiers HTML depuis GitHub et ouvre-les dans ton navigateur. [Fichier des stations](velib_stations_map.html) · [Fichier de Voronoï](velib_stations_voronoi.html)
 
 ## Lire les couleurs
 
