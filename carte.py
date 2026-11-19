@@ -4,6 +4,7 @@ import folium
 from scipy.spatial import Delaunay
 from collections import defaultdict
 import math
+from carte_locale import creer_carte
 
 # Chargement des données
 with open("velib_coordonnées.json", encoding="utf-8") as f:
@@ -84,7 +85,7 @@ for dist, a, b in sorted_edges:
         acm_edges.append((a, b))
 
 # Création de la carte
-m = folium.Map(location=[48.8566, 2.3522], zoom_start=12)
+m = creer_carte()
 m.fit_bounds([points.min(axis=0).tolist(), points.max(axis=0).tolist()], padding=(20, 20))
 triangles = folium.FeatureGroup(name="Triangulation de Delaunay").add_to(m)
 stations = folium.FeatureGroup(name="Stations").add_to(m)
