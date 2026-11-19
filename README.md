@@ -1,5 +1,15 @@
 # Vélib’ - Cartographie des stations et de leurs voisines
 
+Projet universitaire réalisé en équipe : cartographie de **1 473 stations Vélib’** à Paris et dans les communes voisines. À partir de leurs coordonnées et de leur capacité, deux cartes explorent la disposition des stations et leur voisinage.
+
+## Aperçu du projet
+
+![Delaunay, arbre de Kruskal et cellules de Voronoï sur l’instantané des 1 473 stations fourni dans ce dépôt.](docs/presentation.gif)
+
+Delaunay, arbre de Kruskal et cellules de Voronoï sur l’instantané des 1 473 stations fourni dans ce dépôt.
+
+[Voir la vidéo en grand format](docs/presentation.mp4) · [Mon parcours et mes autres projets](https://github.com/ArilesD)
+
 ## Télécharger et lancer
 
 1. [Télécharge le ZIP complet](https://github.com/ArilesD/Projet-Velib/archive/refs/heads/main.zip).
@@ -12,9 +22,6 @@ Garde la fenêtre de lancement ouverte pendant l’utilisation. Appuie sur **Ent
 
 Sous macOS ou Linux avec Python 3.12 à 3.14, ouvre un terminal dans le dossier extrait et exécute **python3 lancer.py**.
 
-Projet universitaire de cartographie de **1 473 stations Vélib’** à Paris et dans les communes voisines. À partir de leurs coordonnées et de leur capacité, deux cartes explorent la disposition des stations et leur voisinage.
-
-![Carte de Voronoï des stations Vélib’](docs/voronoi-velib.jpg)
 
 ## Explorer les cartes
 
