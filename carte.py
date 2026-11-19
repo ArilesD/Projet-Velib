@@ -6,12 +6,10 @@ from collections import defaultdict
 import math
 from carte_locale import creer_carte
 
-# Chargement des données
-with open("velib_coordonnées.json", encoding="utf-8") as f:
-    coords = json.load(f)
-
-with open("velib_stations.json", encoding="utf-8") as f:
-    stations_info = json.load(f)
+# Chargement de l’instantané original
+with open("station_information.json", encoding="utf-8") as f:
+    stations_info = json.load(f)["data"]["stations"]
+coords = stations_info
 
 # Dictionnaires utiles
 coord_to_id = {(s['lat'], s['lon']): s['station_id'] for s in coords}

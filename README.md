@@ -37,7 +37,7 @@ Le dépôt contient un instantané de `station_information.json`. Le fichier por
 
 ## Régénérer les cartes
 
-Depuis la racine du dépôt, utilise Python 3.12 à 3.14 et installe les dépendances. Les deux fichiers JSON dérivés sont déjà fournis.
+Depuis la racine du dépôt, utilise Python 3.12 à 3.14 et installe les dépendances. Les scripts lisent directement l’instantané d’origine station_information.json.
 
 ```bash
 python -m pip install -r requirements.txt
@@ -45,6 +45,6 @@ python carte.py
 python carte_voronoi
 ```
 
-Pour reconstruire les JSON dérivés depuis l’instantané d’origine, lance d’abord `python code.py`, puis `python coordonnés.py`. Les cartes sont enregistrées sous les mêmes noms HTML que ceux des liens ci-dessus.
+Les cartes sont enregistrées dans velib_stations_map.html et velib_stations_voronoi.html.
 
 Les limites locales des départements sont issues d’IGN Admin Express COG 2018, via France GeoJSON, sous Licence Ouverte. [Source des contours](https://github.com/gregoiredavid/france-geojson#licence)
