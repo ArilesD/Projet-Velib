@@ -44,7 +44,7 @@ Le dépôt contient un instantané de `station_information.json`. Le fichier por
 
 Depuis la racine du dépôt, utilise Python 3.12 à 3.14 et installe les dépendances. Les scripts lisent directement l’instantané d’origine station_information.json.
 
-```bash
+```powershell
 python -m pip install -r requirements.txt
 python carte.py
 python carte_voronoi
