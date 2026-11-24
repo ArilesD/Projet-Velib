@@ -1,46 +1,50 @@
-# Vélib’ - Cartographie des stations et de leurs voisines
+# Vélib’ - Cartographie des stations
 
-Projet universitaire réalisé en équipe : cartographie de **1 473 stations Vélib’** à Paris et dans les communes voisines. À partir de leurs coordonnées et de leur capacité, deux cartes explorent la disposition des stations et leur voisinage.
+Projet universitaire réalisé en équipe à partir d’un instantané de **1 473 stations Vélib’** à Paris et dans les communes voisines.
+
+Les cartes montrent les stations, leurs voisines et les zones géométriquement les plus proches de chacune.
+
+**Outils :** Python, Folium, NumPy et SciPy.
 
 ## Aperçu du projet
 
-![Delaunay, arbre de Kruskal et cellules de Voronoï sur l’instantané des 1 473 stations fourni dans ce dépôt.](docs/presentation.gif)
+![Cartes de Delaunay, de Kruskal et de Voronoï sur les 1 473 stations.](docs/presentation.gif)
 
-Delaunay, arbre de Kruskal et cellules de Voronoï sur l’instantané des 1 473 stations fourni dans ce dépôt.
+Les cartes utilisent un instantané des stations, sans disponibilité des vélos en temps réel.
 
-[Voir la capture en grand format](docs/apercu.png) · [Voir la vidéo en grand format](docs/presentation.mp4) · [Mon parcours et mes autres projets](https://github.com/ArilesD)
+[Image en grand format](docs/apercu.png) · [Voir la vidéo](docs/presentation.mp4)
+
+## Ouvrir les cartes
+
+- [Carte des stations et de leurs voisines](https://arilesd.github.io/Projet-Velib/velib_stations_map.html).
+- [Carte des cellules de Voronoï](https://arilesd.github.io/Projet-Velib/velib_stations_voronoi.html).
+
+Le menu en haut à droite permet de choisir les éléments affichés :
+
+- **Delaunay** relie les stations voisines par des triangles.
+- **Kruskal** relie les stations par un arbre de longueur totale minimale.
+- **Voronoï** dessine les zones les plus proches de chaque station. Les cellules ouvertes aux limites du réseau sont omises.
+
+Les couleurs représentent le rapport entre la capacité d’une station et son nombre de voisines. Elles ne représentent pas le nombre de vélos disponibles. Les cartes décrivent une proximité géométrique ; elles ne mesurent pas les temps de trajet.
 
 ## Télécharger et lancer
 
-1. [Télécharge le ZIP complet](https://github.com/ArilesD/Projet-Velib/archive/refs/heads/main.zip).
-2. Dans l’Explorateur de fichiers, fais **Extraire tout**, puis ouvre le dossier extrait.
-3. Installe [Python 3.14](https://www.python.org/downloads/) si besoin, en cochant **Add python.exe to PATH**. Double-clique ensuite sur **LANCER.cmd**.
+1. Installe [Python 3.14](https://www.python.org/downloads/) si besoin, en cochant **Add python.exe to PATH**.
+2. [Télécharge le projet en ZIP](https://github.com/ArilesD/Projet-Velib/archive/refs/heads/main.zip), fais **Extraire tout**, puis ouvre le dossier extrait.
+3. Double-clique sur **LANCER.cmd**.
 
-Le lancement ouvre les cartes déjà calculées depuis l’instantané des 1 473 stations. [Carte des stations](http://127.0.0.1:5115/velib_stations_map.html) · [Carte de Voronoï](http://127.0.0.1:5115/velib_stations_voronoi.html)
+Le premier lancement nécessite Internet pour installer les bibliothèques. Garde la fenêtre de lancement ouverte pendant l’utilisation et appuie sur **Entrée** dans cette fenêtre pour arrêter le projet.
 
-Garde la fenêtre de lancement ouverte pendant l’utilisation. Appuie sur **Entrée** dans cette fenêtre pour arrêter le projet. La première préparation des applications Python installe les bibliothèques depuis Internet. Les ouvertures suivantes réutilisent l’installation du dossier.
+Le lancement ouvre les cartes déjà calculées. Les composants et les limites des départements sont fournis ; le fond OpenStreetMap nécessite Internet.
 
+<details>
+<summary>Données et régénération des cartes</summary>
 
-## Explorer les cartes
-
-- [Ouvrir la carte des stations et du réseau géométrique](https://arilesd.github.io/Projet-Velib/velib_stations_map.html) - Les triangles verts relient les stations voisines selon la triangulation de Delaunay. Les arêtes noires forment un arbre couvrant de poids minimal calculé avec l’algorithme de Kruskal.
-- [Ouvrir la carte de Voronoï](https://arilesd.github.io/Projet-Velib/velib_stations_voronoi.html) - Chaque cellule affichée correspond à la zone géométriquement la plus proche de sa station. Les cellules ouvertes aux limites du réseau sont omises.
-
-Le menu en haut à droite permet d’afficher les stations, la triangulation, l’arbre ou les cellules selon la carte. Les composants de la carte et les limites des départements sont fournis dans le dossier. Le fond OpenStreetMap nécessite Internet. [Fond de carte © les contributeurs OpenStreetMap](https://www.openstreetmap.org/copyright)
-
-Pour garder une copie sur ton ordinateur, télécharge le ZIP complet et ouvre les cartes avec **LANCER.cmd**. [Fichier des stations](velib_stations_map.html) · [Fichier de Voronoï](velib_stations_voronoi.html)
-
-## Lire les couleurs
-
-Le projet divise la capacité d’une station par le nombre de ses voisines dans la triangulation de Delaunay. La première carte colore ce ratio selon une échelle continue. La carte de Voronoï le classe autour d’un seuil de 6 choisi pour le projet.
-
-Les calculs reposent sur les coordonnées et la capacité des stations. Les cellules décrivent la proximité géométrique. Une analyse de la desserte demanderait aussi des données d’usage et des temps de trajet.
-
-## Données
+### Données
 
 Le dépôt contient un instantané de `station_information.json`. Le fichier porte l’horodatage du **20 janvier 2025 à 21 h 52, heure de Paris**. Il fournit l’identifiant, le nom, la latitude, la longitude et la capacité des stations. Le format correspond au flux public de localisation Vélib’ Métropole. [Données publiques Vélib’ - Smovengo / Syndicat Autolib’ Vélib’ Métropole](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations)
 
-## Régénérer les cartes
+### Régénérer les cartes
 
 Depuis la racine du dépôt, utilise Python 3.12 à 3.14 et installe les dépendances. Les scripts lisent directement l’instantané d’origine station_information.json.
 
@@ -53,3 +57,7 @@ python carte_voronoi
 Les cartes sont enregistrées dans velib_stations_map.html et velib_stations_voronoi.html.
 
 Les limites locales des départements sont issues d’IGN Admin Express COG 2018, via France GeoJSON, sous Licence Ouverte. [Source des contours](https://github.com/gregoiredavid/france-geojson#licence)
+
+</details>
+
+Fond de carte © [les contributeurs OpenStreetMap](https://www.openstreetmap.org/copyright).
