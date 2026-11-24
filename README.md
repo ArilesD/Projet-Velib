@@ -8,7 +8,7 @@ Projet universitaire réalisé en équipe : cartographie de **1 473 stations Vé
 
 Delaunay, arbre de Kruskal et cellules de Voronoï sur l’instantané des 1 473 stations fourni dans ce dépôt.
 
-[Voir la vidéo en grand format](docs/presentation.mp4) · [Mon parcours et mes autres projets](https://github.com/ArilesD)
+[Voir la capture en grand format](docs/apercu.png) · [Voir la vidéo en grand format](docs/presentation.mp4) · [Mon parcours et mes autres projets](https://github.com/ArilesD)
 
 ## Télécharger et lancer
 
