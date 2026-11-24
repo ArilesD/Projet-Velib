@@ -37,27 +37,10 @@ Le premier lancement nécessite Internet pour installer les bibliothèques. Gard
 
 Le lancement ouvre les cartes déjà calculées. Les composants et les limites des départements sont fournis ; le fond OpenStreetMap nécessite Internet.
 
-<details>
-<summary>Données et régénération des cartes</summary>
+## Sources des données
 
-### Données
+Les cartes utilisent un instantané des coordonnées et capacités des stations du **20 janvier 2025**. [Données publiques Vélib’](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations).
 
-Le dépôt contient un instantané de `station_information.json`. Le fichier porte l’horodatage du **20 janvier 2025 à 21 h 52, heure de Paris**. Il fournit l’identifiant, le nom, la latitude, la longitude et la capacité des stations. Le format correspond au flux public de localisation Vélib’ Métropole. [Données publiques Vélib’ - Smovengo / Syndicat Autolib’ Vélib’ Métropole](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations)
-
-### Régénérer les cartes
-
-Depuis la racine du dépôt, utilise Python 3.12 à 3.14 et installe les dépendances. Les scripts lisent directement l’instantané d’origine station_information.json.
-
-```powershell
-python -m pip install -r requirements.txt
-python carte.py
-python carte_voronoi
-```
-
-Les cartes sont enregistrées dans velib_stations_map.html et velib_stations_voronoi.html.
-
-Les limites locales des départements sont issues d’IGN Admin Express COG 2018, via France GeoJSON, sous Licence Ouverte. [Source des contours](https://github.com/gregoiredavid/france-geojson#licence)
-
-</details>
+Les limites des départements proviennent d’IGN Admin Express COG 2018, via France GeoJSON, sous Licence Ouverte. [Source des contours](https://github.com/gregoiredavid/france-geojson#licence).
 
 Fond de carte © [les contributeurs OpenStreetMap](https://www.openstreetmap.org/copyright).
