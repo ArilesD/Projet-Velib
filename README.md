@@ -10,8 +10,6 @@ Les cartes montrent les stations, leurs voisines et les zones géométriquement 
 
 ![Cartes de Delaunay, de Kruskal et de Voronoï sur les 1 473 stations.](docs/presentation.gif)
 
-Les cartes utilisent un instantané des stations, sans disponibilité des vélos en temps réel.
-
 [Image en grand format](docs/apercu.png) · [Voir la vidéo](docs/presentation.mp4)
 
 ## Ouvrir les cartes
@@ -23,9 +21,9 @@ Le menu en haut à droite permet de choisir les éléments affichés :
 
 - **Delaunay** relie les stations voisines par des triangles.
 - **Kruskal** relie les stations par un arbre de longueur totale minimale.
-- **Voronoï** dessine les zones les plus proches de chaque station. Les cellules ouvertes aux limites du réseau sont omises.
+- **Voronoï** dessine les zones les plus proches de chaque station.
 
-Les couleurs représentent le rapport entre la capacité d’une station et son nombre de voisines. Elles ne représentent pas le nombre de vélos disponibles. Les cartes décrivent une proximité géométrique ; elles ne mesurent pas les temps de trajet.
+Les couleurs représentent le rapport entre la capacité d’une station et son nombre de voisines.
 
 ## Télécharger et lancer
 
@@ -35,12 +33,8 @@ Les couleurs représentent le rapport entre la capacité d’une station et son 
 
 Le premier lancement nécessite Internet pour installer les bibliothèques. Garde la fenêtre de lancement ouverte pendant l’utilisation et appuie sur **Entrée** dans cette fenêtre pour arrêter le projet.
 
-Le lancement ouvre les cartes déjà calculées. Les composants et les limites des départements sont fournis ; le fond OpenStreetMap nécessite Internet.
+Le lancement ouvre les cartes déjà calculées. Le fond OpenStreetMap nécessite Internet.
 
-## Sources des données
-
-Les cartes utilisent un instantané des coordonnées et capacités des stations du **20 janvier 2025**. [Données publiques Vélib’](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations).
-
-Les limites des départements proviennent d’IGN Admin Express COG 2018, via France GeoJSON, sous Licence Ouverte. [Source des contours](https://github.com/gregoiredavid/france-geojson#licence).
+Données : [Vélib’](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations), instantané du 20 janvier 2025. Contours : [IGN Admin Express COG 2018 / France GeoJSON, Licence Ouverte](https://github.com/gregoiredavid/france-geojson#licence).
 
 Fond de carte © [les contributeurs OpenStreetMap](https://www.openstreetmap.org/copyright).
