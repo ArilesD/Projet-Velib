@@ -37,4 +37,4 @@ Le premier lancement nécessite Internet pour installer les bibliothèques. Gard
 
 Le lancement ouvre les cartes déjà calculées. Le fond OpenStreetMap nécessite Internet.
 
-Données : [Vélib’](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations), données enregistrées le 20 janvier 2025. Contours : [IGN Admin Express COG 2018 / France GeoJSON, Licence Ouverte](https://github.com/gregoiredavid/france-geojson#licence).
+Données : [Vélib’](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations), données enregistrées le 20 janvier 2025.
