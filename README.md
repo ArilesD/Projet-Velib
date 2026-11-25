@@ -10,8 +10,6 @@ Les cartes montrent les stations, leurs voisines et les zones géométriquement 
 
 ![Cartes de Delaunay, de Kruskal et de Voronoï sur les 1 473 stations.](docs/presentation.gif)
 
-[Image en grand format](docs/apercu.png) · [Voir la vidéo](docs/presentation.mp4)
-
 ## Ouvrir les cartes
 
 - [Carte des stations et de leurs voisines](https://arilesd.github.io/Projet-Velib/velib_stations_map.html).
@@ -36,5 +34,3 @@ Le premier lancement nécessite Internet pour installer les bibliothèques. Gard
 Le lancement ouvre les cartes déjà calculées. Le fond OpenStreetMap nécessite Internet.
 
 Données : [Vélib’](https://www.data.gouv.fr/datasets/velib-localisation-et-caracteristique-des-stations), instantané du 20 janvier 2025. Contours : [IGN Admin Express COG 2018 / France GeoJSON, Licence Ouverte](https://github.com/gregoiredavid/france-geojson#licence).
-
-Fond de carte © [les contributeurs OpenStreetMap](https://www.openstreetmap.org/copyright).
